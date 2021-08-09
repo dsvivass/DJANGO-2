@@ -1,0 +1,108 @@
+1. Crear un entorno virtual en una carpeta  /venv/ o /env/
+
+        virtualenv .     # Aqui uno debe estar dentro de la carpeta
+
+2. Activar el entorno virtual:
+
+    - En mac y linux:         source env/bin/activate
+
+    - En windows:             ./env/Script/activate
+
+        (Si arroja error de permisos escribir:
+        
+                    Set-ExecutionPolicy Unrestricted -Scope Process 
+                    
+        )
+
+    Una vez activado debe aparecer el ambiente entre parentesis
+
+    (env) PS C:\Users\DesarrollaDDS ...........
+
+3. Se puede probar con 
+
+        pip freeze
+
+para ver que efectivamente no hay paquetes instalados.
+
+4. instalar Django
+
+    pip install Django    # Instala la última versión
+
+    pip install Django==2.0.7    # Así si queremos una versión diferente
+
+4.1 Una vez instalado, si escribo django-admin, voy a ver todos subcomandos disponibles:
+
+    django-admin
+
+        Type 'django-admin help <subcommand>' for help on a specific subcommand.
+
+        Available subcommands:
+
+        [django]
+            check
+            compilemessages
+            createcachetable
+            dbshell
+            diffsettings
+            dumpdata
+            flush
+            inspectdb
+            loaddata
+            makemessages
+            makemigrations
+            migrate
+            runserver
+            sendtestemail
+            shell
+            showmigrations
+            sqlflush
+            sqlmigrate
+            sqlsequencereset
+            squashmigrations
+            startapp
+            startproject
+            test
+            testserver
+
+        Note that only Django core commands are listed as settings are not properly 
+        configured (error: Requested setting INSTALLED_APPS, but settings are not 
+        configured. You must either define the environment variable DJANGO_SETTINGS_MODULE 
+        or call settings.configure() before accessing settings.).
+
+
+5. Iniciar un proyecto
+    
+    (OPCIONAL) Crear una carpeta que se llame "src" y crear allí el proyecto
+
+        django-admin startproject <nombre del proyecto> .   # El punto es para iniciarlo en la carpeta src 
+
+6. Si voy al directorio raiz del proyecto y ejecuto:
+
+    python manage.py runserver
+
+        saldrá lo siguiente:
+
+        Performing system checks...
+
+        System check identified no issues (0 silenced).
+
+        You have 14 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+        Run 'python manage.py migrate' to apply them.
+        August 09, 2021 - 17:01:44
+        Django version 2.0.7, using settings 'django2.settings'
+        Starting development server at http://127.0.0.1:8000/
+        Quit the server with CTRL-BREAK.
+        [09/Aug/2021 17:01:59] "GET / HTTP/1.1" 200 16348
+        [09/Aug/2021 17:01:59] "GET /static/admin/css/fonts.css HTTP/1.1" 200 423
+        [09/Aug/2021 17:01:59] "GET /static/admin/fonts/Roboto-Light-webfont.woff HTTP/1.1" 200
+        81348
+        [09/Aug/2021 17:01:59] "GET /static/admin/fonts/Roboto-Bold-webfont.woff HTTP/1.1" 200 82564
+        [09/Aug/2021 17:01:59] "GET /static/admin/fonts/Roboto-Regular-webfont.woff HTTP/1.1" 200 80304
+
+    Y podré ver en el 
+    
+        localhost:8000    o    http://127.0.0.1:8000/
+
+    Que toda la instalación salió bien.
+
+    
