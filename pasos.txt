@@ -109,3 +109,76 @@ para ver que efectivamente no hay paquetes instalados.
 7. Sincronizar nuestra configuracion de la base de datos
 
     python manage.py migrate
+
+    (Algunas veces es mejor hacer las migraciones primero
+    
+        python manage.py makemigrations
+
+    )
+
+8. Crear un super usuario que administra al proyecto:
+
+    python manage.py createsuperuser
+
+    Se pone alias, contraseña y se accede al panel desde:
+
+    localhost:8000/admin
+
+9. Crear una aplicación
+
+    python manage.py startapp <nombre de la aplicacion>
+
+9.1 Cree una app llamada products, y en el archivo "models.py"
+    cree la clase Product, que hereda de models.Model, para mapear
+    mis atributos en la base de datos
+
+10.  Agregar mi app "products" a settings.py en la variable 
+    INSTALLED_APPS
+
+    INSTALLED_APPS = [
+        'django.contrib.admin',
+        'django.contrib.auth',
+        'django.contrib.contenttypes',
+        'django.contrib.sessions',
+        'django.contrib.messages',
+        'django.contrib.staticfiles',
+
+        # Third party
+
+        # Own apps
+        'products',
+    ]
+
+10.1 Ejecuto (Siempre que hagamos cambios en models.py lo ejecutamos)
+
+    python manage.py makemigrations   # Para reconocer los nuevos cambios en la DB 
+
+        Luego ejecuto
+
+    python manage.py migrate
+
+        Y aparecera que migro la app products:
+        Apply all migrations: admin, auth, contenttypes, products, sessions
+
+11. Para observar el modelo recien creado en el panel de admin, hago lo siguiente
+
+    voy a products/admin y registro mi modelo Product
+
+        from .models import Product # Importo el modelo Product recien creado,
+                            # Para verlo en el panel de administracion
+
+        admin.site.register(Product)
+
+12. Para agregar objetos desde el shell de python, escribimos lo siguiente:
+
+    python manage.py shell
+
+        Se abre un shell de python y podemos acceder a toda nuestra info
+
+    Escribimos:
+
+    from products.models import Product
+
+    Product.objects.all()  #  Imprime todos los objetos de la clase Product que tengamos
+
+    Product.objects.create(title='Prduct 2', description='dscript', price=28000, summary='done!')
