@@ -105,4 +105,7 @@ para ver que efectivamente no hay paquetes instalados.
 
     Que toda la instalación salió bien.
 
-    
+
+7. Sincronizar nuestra configuracion de la base de datos
+
+    python manage.py migrate
