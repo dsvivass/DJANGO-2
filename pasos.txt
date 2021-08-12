@@ -182,3 +182,73 @@ para ver que efectivamente no hay paquetes instalados.
     Product.objects.all()  #  Imprime todos los objetos de la clase Product que tengamos
 
     Product.objects.create(title='Prduct 2', description='dscript', price=28000, summary='done!')
+
+13. Voy a cambiar los tipos de valores de Product, entonces elimino todo lo que esta en la carpeta
+    migrations, menos el archivo __init__.py y elimino la base de datos también
+
+14. Si creo 2 objetos con ciertos atributos dados y luego decido ingresar un nuevo atributo en models,
+    django va a solicitar que el nuevo atributo tenga un valor por defecto para adicionarlo
+    a los 2 objetos anteriores
+
+    Podría decir None=True para que el nuevo atributo aparezca vacío en los 2 objetos viejos, o darle otro
+    valor por defecto, si es un BooleanField, que sea False por ejemplo por defecto y así.
+
+15. Crear una view
+
+    Creo una app llamada pages, defino lo que va a devolver en una función
+    "homeView" creada en pages/views.py
+
+    Y luego añado esa página a urls.py ubicada en django2/urls.py y la ruta es "home/"
+
+        path('home/', homeView, name='home')
+
+    es decir el inicio se mostrara en
+
+        localhost:8000/home/
+
+16. Templates, en vez de retornar un html sencillo:     return HttpResponse("<h1>Hello World!</h1>")
+
+    Voy a retornar un template: 
+    
+    Voy a la raiz del proyecto y creo un directorio llamado      templates   y por dentro guardo los
+    templates:  ej:  home.html
+
+    y luego debo agregar el path de la carpeta templates a la variable TEMPLATES de settings.py
+
+    usando: os.path.join(BASE_DIR, 'templates') y quedaría así:
+
+    VER MAS COSAS DENTRO DE LOS ARCHIVOS (FOR IF, ETC)
+
+17. Para traer datos de la BD desde el shell
+
+    
+
+        TEMPLATES = [ # Aqui están las plantillas; cómo django renderiza html, etc.
+            {
+                'BACKEND': 'django.template.backends.django.DjangoTemplates',
+                'DIRS': [os.path.join(BASE_DIR, 'templates')],
+                'APP_DIRS': True,
+                'OPTIONS': {
+                    'context_processors': [
+                        'django.template.context_processors.debug',
+                        'django.template.context_processors.request',
+                        'django.contrib.auth.context_processors.auth',
+                        'django.contrib.messages.context_processors.messages',
+                    ],
+                },
+            },
+        ]
+
+17. creo un base.html con información que heredarán los otros html
+
+    y poner en los otros:
+
+        {% extends "base.html" %}
+
+        y donde está:
+
+        {% block content %}
+
+        {% endblock %}
+
+        reemplazo en cada página con su propia info.

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>About</h1>
+<p>This is a template</p>
+
+<p>
+    {{ text|capfirst|upper|title }}
+</p>
+
+{{ titulo|safe }}
+
+<p>
+    {{ text }}, {{ numero }}, {{ list }}
+</p>
+
+<!-- FOR LOOP -->
+
+<ul>
+    {% for item in list %}
+
+        {% if item == 123 %}
+        
+            <li> {{ forloop.counter }} - {{ item|add:10 }} </li>
+
+        {% elif item == 'abc' %}
+
+            <li> {{ forloop.counter }} - This is the network </li>
+
+        {% else %}
+
+            <li> {{ forloop.counter }} - {{ item }} </li>
+
+        {% endif %}
+
+    {% endfor %}
+</ul>
+
+
+{% endblock %}
