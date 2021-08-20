@@ -252,3 +252,24 @@ para ver que efectivamente no hay paquetes instalados.
         {% endblock %}
 
         reemplazo en cada página con su propia info.
+
+18. Crear Django model forms (Para que los escriban datos en mi DB)
+
+    Creo un archivo llamado forms.py en products/
+
+        from django import forms 
+
+        from .models import Product
+
+        class ProductForm(forms.ModelForm):
+            class Meta:
+                model = Product
+                fields = [
+                    'title',
+                    'description',
+                    'price'
+                ]
+
+    Y para verlo vamos a importarlo en views.py
+
+    

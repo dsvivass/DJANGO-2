@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- haciendolo de la forma clásica -->
+
+<!-- Cuando se usa el metodo GET, lo que ingrese pasa como variable, 
+y con el action me redirijo a otro sitio con las variables que pasé -->
+
+<!-- <form action="http://www.google.com/search" method="GET"> 
+    <input type="text" name='q' placeholder="your search">
+    <input type="submit" value="save">
+
+</form> -->
+
+<!-- Es interesante saber que uno puede almacenar datos con el metodo GET,
+SIN EMBARGO es algo muy inseguro, ya que un hacker a punta de URL puede guaradar info -->
+
+<!-- Por eso se recomienda usar POST y si uno no usa un token especial en python, 
+no permite escribir en la  DB -->
+
+<!-- {% csrf_token %} Es un security feature, es un rule of thumb para cuando usamos POST -->
+
+<!-- Todo esto es muy chévere, pero la metodología no tiene que ver nada con
+Django -->
+
+<form action="." method="POST"> {% csrf_token %}
+    <input type="text" name='my_titulo' placeholder="your text">
+    <input type="submit" value="save">
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form action="." method="POST"> {% csrf_token %}
+
+    {{ form.as_ul }}
+    <input type="submit" value="save">
+
+</form>
+
+<!-- {{ form.as_p }} es la forma en la que voy a renderizar el formulario
+form.as_ul lo haría como lista por ejemplo -->
+
+{% endblock %}

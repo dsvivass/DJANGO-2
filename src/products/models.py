@@ -13,4 +13,4 @@ class Product(models.Model): # Usamos los modelfields de django, heredamos de mo
                                                         # que en la base de datos podrá tener un valor nulo
     price = models.DecimalField(max_digits=19, decimal_places=2)
     summary = models.TextField(blank=True, null=True)
-    featured = models.BooleanField()
+    featured = models.BooleanField(default=True)
