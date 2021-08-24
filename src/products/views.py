@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.http import Http404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Product
 # Create your views here.
 
@@ -22,17 +23,37 @@ def productDetailView(request):
 
 
 
+# (VISUALIZACIÓN) De listas de datos
+def productListView(request):
+
+    # Casi siempre se llama querySet
+    querySet = Product.objects.all() # List of objects
+
+    context = {
+        'objectList': querySet
+    }
+
+    return render(request, "product/products.html", context)
+
+
+
 
 # (ESCRITURA)
 def productCreateView(request):
 
-    form = ProductForm(request.POST or None) # Crea la instancia de la clase
+    # Puedo poner datos iniciales
+    initialData = {
+        'title': 'My Daniel title',
+    }
+
+    form = ProductForm(request.POST or None, initial=initialData) # Crea la instancia de la clase
+                        # Ya sea con información o vacío
 
     if form.is_valid():
         form.save()
         form = ProductForm() # Lo re-renderizo para que salga blank y ahí sé que algo pasó
 
-    context = { # Es mejor pasar todo el objeto
+    context = {
         'form': form
     }
 
@@ -84,3 +105,66 @@ def productCreateViewClasicoPureDjango(request):
         'form': myForm
     }
     return render(request, 'product/createPureDjango.html', context)
+
+
+# (MODIFICACION)
+def productModifyView(request):
+
+    # Puedo poner datos iniciales de un objeto por defecto
+    obj = Product.objects.get(id=1)
+
+    form = ProductForm(request.POST or None, instance=obj) # Crea la instancia de la clase
+                        # Ya sea con información o vacío
+
+    if form.is_valid():
+        form.save()
+        form = ProductForm() # Lo re-renderizo para que salga blank y ahí sé que algo pasó
+
+    context = {
+        'form': form
+    }
+
+    return render(request, 'product/modify.html', context)
+
+
+
+
+# Dynamic URL Routing
+def dynamicLookupView(request, my_id):
+
+    # obj = Product.objects.get(id=my_id) # Lo podría hacer así, pero voy a usar una herramienta
+                                    # que me ayuda a lidiar con datos no encontrados
+
+    # Forma de manejar objetos no encontrados
+    obj = get_object_or_404(Product, id=my_id)
+
+    # Otra forma de lidiar con errores, pero la de arriba es más sencilla
+    # try:
+    #     obj = Product.objects.get(id=my_id)
+    # except Product.DoesNotExist:
+    #     raise Http404
+
+    context = {
+        "object": obj
+    }
+
+    return render(request, 'product/detail.html', context)
+
+
+
+# (ELIMINACION)
+def productDelete(request, id):
+
+    obj = get_object_or_404(Product, id=id)
+
+    # POST request, NUNCA eliminar con un GET request
+    if request.method == "POST":
+        obj.delete()
+        return redirect("../../")
+
+
+    context = {
+        "object": obj
+    }
+
+    return render(request, 'product/delete.html', context)

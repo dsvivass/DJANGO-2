@@ -15,17 +15,30 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.urls.conf import include
 from pages.views import homeView, contactView, aboutView
-from products.views import productDetailView, productCreateView, productCreateViewClasico, productCreateViewClasicoPureDjango
+# from products.views import productDetailView, productCreateView, productCreateViewClasico, productCreateViewClasicoPureDjango, productModifyView, dynamicLookupView, productDelete, productListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', homeView, name='home'),
     path('home/', homeView, name='home'),
     path('contact/', contactView, name='contact'),
-    path('about/', aboutView, name='about'),
-    path('product/', productDetailView, name='product'),
-    path('create/', productCreateView, name='create'),
-    path('createClasico/', productCreateViewClasico, name='createClasico'),
-    path('createPureDjango/', productCreateViewClasicoPureDjango, name='createPureDjango'),
+    path('about/', aboutView, name='dynamicLookupView'),
+
+    # Todo esto lo puedo importar así, pero para minimizar errores,
+    # voy a crear dentro de products/ un archivo urls.py y meter todo esto
+
+    # path('product/', productDetailView, name='product'),
+    # path('create/', productCreateView, name='create'),
+    # path('createClasico/', productCreateViewClasico, name='createClasico'),
+    # path('createPureDjango/', productCreateViewClasicoPureDjango, name='createPureDjango'),
+    # path('modify/', productModifyView, name='modify'),
+    # path('products/<int:my_id>', dynamicLookupView, name='dynamicLookupView'), # Leer los tipos de args que puedo pasar
+    # path('products/<int:id>/delete', productDelete, name='delete'),
+    # path('products/', productListView, name='listView'),
+
+    # PUEDO INCLUIR TODO EN UNA LINEA
+
+    path('products/', include('products.urls'))
 ]
